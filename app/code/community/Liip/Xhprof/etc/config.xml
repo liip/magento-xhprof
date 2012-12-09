@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Liip_Xhprof>
+            <version>0.0.1</version>
+        </Liip_Xhprof>
+    </modules>
+
+    <global>
+        <models>
+            <liip_xhprof>
+                <class>Liip_Xhprof_Model</class>
+                <resourceModel>liip_xhprof_resource</resourceModel>
+            </liip_xhprof>
+            <liip_xhprof_resource>
+                <class>Liip_Xhprof_Model_Resource</class>
+                <entities>
+                    <run>
+                        <table>liip_xhprof_run</table>
+                    </run>
+                </entities>
+            </liip_xhprof_resource>
+        </models>
+        <resources>
+            <liip_xhprof_setup>
+                <setup>
+                    <module>Liip_Xhprof</module>
+                </setup>
+            </liip_xhprof_setup>
+        </resources>
+
+        <blocks>
+            <liip_xhprof>
+                <class>Liip_Xhprof_Block</class>
+            </liip_xhprof>
+        </blocks>
+
+        <helpers>
+            <liip_xhprof>
+                <class>Liip_Xhprof_Helper</class>
+            </liip_xhprof>
+        </helpers>
+
+        <events>
+            <controller_front_init_before>
+                <observers>
+                    <xhprof_start>
+                        <type>singleton</type>
+                        <class>liip_xhprof/observer</class>
+                        <method>start</method>
+                    </xhprof_start>
+                </observers>
+            </controller_front_init_before>
+            <controller_front_send_response_after>
+                <observers>
+                    <xhprof_stop>
+                        <type>singleton</type>
+                        <class>liip_xhprof/observer</class>
+                        <method>stop</method>
+                    </xhprof_stop>
+                </observers>
+            </controller_front_send_response_after>
+        </events>
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <liip_xhprof>
+                    <file>liip/xhprof.xml</file>
+                </liip_xhprof>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <liip_xhprof before="Mage_Adminhtml">Liip_Xhprof_Adminhtml</liip_xhprof>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

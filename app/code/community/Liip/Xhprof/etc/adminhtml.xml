@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <report translate="title" module="reports">
+            <children>
+                <xhprof translate="title" module="liip_xhprof">
+                    <title>Xhprof</title>
+                    <action>adminhtml/report_xhprof/index</action>
+                    <sort_order>9999</sort_order>
+                </xhprof>
+            </children>
+        </report>
+    </menu>
+</config>
