@@ -6,12 +6,12 @@
     "description": "Profile Magento with XHProf",
     "authors":[
         {
-            "name":"Liip AG"",
-            "homepage":"http://www.liip.ch/"
+            "name": "Liip AG",
+            "homepage": "http://www.liip.ch/"
         }
     ],
     "require":{
-        "magento-hackathon/magento-composer-installer":"dev-master"
+        "magento-hackathon/magento-composer-installer": "dev-master"
     },
     "extra":{
         "map": [
