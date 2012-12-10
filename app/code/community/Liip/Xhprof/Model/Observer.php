@@ -2,14 +2,41 @@
 
 class Liip_Xhprof_Model_Observer
 {
+    protected $profiling = false;
+
     /**
      * Event handler for `controller_front_init_before`
      */
     public function start($observer)
     {
-        if (Mage::helper('liip_xhprof')->isEnabled()) {
+        if (!Mage::helper('liip_xhprof')->isEnabled()) {
+            return;
+        }
+
+        $includes = explode("\n", Mage::app()->getStore()->getConfig('dev/liip_xhprof/include_paths'));
+        $excludes = explode("\n", Mage::app()->getStore()->getConfig('dev/liip_xhprof/exclude_paths'));
+
+        $url = Mage::app()->getRequest()->getPathInfo();
+
+        $isIncluded = false;
+        foreach ($includes as $include) {
+            if (strpos($url, $include) === 0) {
+                $isIncluded = true;
+            }
+        }
+    
+        $isExcluded = false;
+        foreach ($excludes as $exclude) {
+            if (strpos($url, $exclude) === 0) {
+                $isExcluded = true;
+            }
+        }
+
+        if ($isIncluded && !$isExcluded) {
 
             xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+
+            $this->profiling = true;
         }
     }
 
@@ -18,7 +45,7 @@ class Liip_Xhprof_Model_Observer
      */
     public function stop($observer)
     {
-        if (Mage::helper('liip_xhprof')->isEnabled()) {
+        if ($this->profiling) {
 
             $data = xhprof_disable();
 

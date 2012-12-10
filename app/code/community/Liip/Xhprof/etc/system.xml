@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <dev>
+            <groups>
+                <liip_xhprof translate="label" module="liip_xhprof">
+                    <label>XHProf</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>900</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <include_paths translate="label comment">
+                            <label>Include Paths</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Whitelist, one prefix per line.</comment>
+                        </include_paths>
+                        <exclude_paths translate="label comment">
+                            <label>Exclude Paths</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Blacklist, one prefix per line.</comment>
+                        </exclude_paths>
+                    </fields>
+                </liip_xhprof>
+            </groups>
+        </dev>
+    </sections>
+</config>

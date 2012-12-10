@@ -83,4 +83,13 @@
             </adminhtml>
         </routers>
     </admin>
+
+    <default>
+        <dev>
+            <liip_xhprof>
+                <include_paths>/</include_paths>
+                <exclude_paths>/admin/</exclude_paths>
+            </liip_xhprof>
+        </dev>
+    </default>
 </config>
