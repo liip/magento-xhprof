@@ -18,9 +18,9 @@
             </block>
         </reference>
     </adminhtml_report_xhprof_run>
-    <adminhtml_report_xhprof_runGrid>
+    <adminhtml_report_xhprof_rungrid>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="liip_xhprof/report_run_grid" name="liip.xhprof.report.run.grid" />
         </block>
-    </adminhtml_report_xhprof_runGrid>
+    </adminhtml_report_xhprof_rungrid>
 </layout>

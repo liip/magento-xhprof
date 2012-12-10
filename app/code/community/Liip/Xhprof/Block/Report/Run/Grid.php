@@ -86,6 +86,6 @@ class Liip_Xhprof_Block_Report_Run_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     public function getGridUrl()
      {
-       return $this->getUrl('*/*/grid', array('_current'=>true));
+       return $this->getUrl('*/*/runGrid', array('_current'=>true));
      }
 }
