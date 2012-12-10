@@ -11,10 +11,19 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
+                        <sample_size translate="label comment">
+                            <label>Sample size</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>How often profiles should be recorded. 1 means everytime, 100 every hundredth time.</comment>
+                        </sample_size>
                         <include_paths translate="label comment">
                             <label>Include Paths</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>10</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -23,7 +32,7 @@
                         <exclude_paths translate="label comment">
                             <label>Exclude Paths</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>20</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>

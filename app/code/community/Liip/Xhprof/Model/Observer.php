@@ -13,8 +13,11 @@ class Liip_Xhprof_Model_Observer
             return;
         }
 
+        $sampleSize = Mage::app()->getStore()->getConfig('dev/liip_xhprof/sample_size');
         $includes = explode("\n", Mage::app()->getStore()->getConfig('dev/liip_xhprof/include_paths'));
         $excludes = explode("\n", Mage::app()->getStore()->getConfig('dev/liip_xhprof/exclude_paths'));
+
+        $isSample = (mt_rand(1, $sampleSize) == 1);
 
         $url = Mage::app()->getRequest()->getPathInfo();
 
@@ -24,7 +27,7 @@ class Liip_Xhprof_Model_Observer
                 $isIncluded = true;
             }
         }
-    
+
         $isExcluded = false;
         foreach ($excludes as $exclude) {
             if (strpos($url, $exclude) === 0) {
@@ -32,7 +35,7 @@ class Liip_Xhprof_Model_Observer
             }
         }
 
-        if ($isIncluded && !$isExcluded) {
+        if ($isSample && $isIncluded && !$isExcluded) {
 
             xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 

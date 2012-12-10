@@ -89,6 +89,7 @@
             <liip_xhprof>
                 <include_paths>/</include_paths>
                 <exclude_paths>/admin/</exclude_paths>
+                <sample_size>1</sample_size>
             </liip_xhprof>
         </dev>
     </default>
