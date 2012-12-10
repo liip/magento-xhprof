@@ -5,4 +5,5 @@ This Magento extension integrates [XHProf](https://github.com/facebook/xhprof) i
 Requirements
 ------------
 - PHP 5.3.0
+- XHProf
 - Mage_Core
