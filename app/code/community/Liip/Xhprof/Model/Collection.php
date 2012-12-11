@@ -3,10 +3,16 @@
 class Liip_Xhprof_Model_Collection extends Varien_Data_Collection
 {
     protected $calls;
+    protected $parent;
 
     public function setCalls($calls)
     {
         $this->calls = $calls;
+    }
+
+    public function setCurrent($current = null)
+    {
+        $this->current = $current;
     }
 
     public function load($printQuery = false, $logQuery = false)
@@ -17,39 +23,72 @@ class Liip_Xhprof_Model_Collection extends Varien_Data_Collection
 
         // Collect
         $calls = array();
-        foreach ($this->calls as $call => $time) {
 
+        foreach ($this->calls as $call => $time) {
+            // || empty($this->calls['parent'])
             if ($call == 'main()') {
                 $parent = null;
                 $child = $call;
             } else {
                 list($parent, $child) = explode('==>', $call);
             }
+            if ($this->current) {
+                if ($child == $this->current) {
+                    if (!isset($calls[$parent])) {
+                        $calls[$parent] = array(
+                            'name' => "parent -> ".$parent,
+                            'parent' => $parent,
+                            'count' => 0,
+                            'time' => 0,
+                            'excl_time' => 0,
+                        );
+                        $calls[$parent]['excl_time'] -= $time['wt'];
+                    }
 
-            if (!isset($calls[$child])) {
-                $calls[$child] = array(
-                    'name' => $child,
-                    'count' => 0,
-                    'time' => 0,
-                    'excl_time' => 0,
-                );
-            }
-
-            $calls[$child]['count'] += $time['ct'];
-            $calls[$child]['time'] += $time['wt'];
-            $calls[$child]['excl_time'] += $time['wt'];
-
-            if ($parent) {
-                if (!isset($calls[$parent])) {
-                    $calls[$parent] = array(
-                        'name' => $parent,
+                } elseif ($parent == $this->current) {
+                    if (!isset($calls[$child])) {
+                        $calls[$child] = array(
+                            'name' => "child ---> " . $child,
+                            'parent' => $parent,
+                            'count' => 0,
+                            'time' => 0,
+                            'excl_time' => 0,
+                        );
+                        $calls[$child]['count'] += $time['ct'];
+                        $calls[$child]['time'] += $time['wt'];
+                        $calls[$child]['excl_time'] += $time['wt'];
+                    }
+                }
+            } else {
+                if (!isset($calls[$child])) {
+                    $calls[$child] = array(
+                        'name' => $child,
+                        'parent' => $parent,
                         'count' => 0,
                         'time' => 0,
                         'excl_time' => 0,
                     );
                 }
-                $calls[$parent]['excl_time'] -= $time['wt'];
+
+                $calls[$child]['count'] += $time['ct'];
+                $calls[$child]['time'] += $time['wt'];
+                $calls[$child]['excl_time'] += $time['wt'];
+
+
+                if ($parent) {
+                    if (!isset($calls[$parent])) {
+                        $calls[$parent] = array(
+                            'name' => $parent,
+                            'parent' => $parent,
+                            'count' => 0,
+                            'time' => 0,
+                            'excl_time' => 0,
+                        );
+                    }
+                    $calls[$parent]['excl_time'] -= $time['wt'];
+                }
             }
+
         }
 
         // Sort

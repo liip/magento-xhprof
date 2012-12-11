@@ -16,30 +16,32 @@ class Liip_Xhprof_Block_Report_Run_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareCollection()
     {
-       // Get and set our collection for the grid
-       if (!$this->getCollection()) {
-           $collection = Mage::getModel('liip_xhprof/collection');
-           
-           $id = Mage::app()->getRequest()->getParam('id');
-           
-           $runs = Mage::getModel('liip_xhprof/run')->getCollection();
-           $runs->addFieldToFilter('id', $id);
-    
-           $row = $runs->getFirstItem();
-    
+        // Get and set our collection for the grid
+        if (!$this->getCollection()) {
+            $collection = Mage::getModel('liip_xhprof/collection');
+
+            $id = Mage::app()->getRequest()->getParam('id');
+            $parent = Mage::app()->getRequest()->getParam('parent');
+
+            $runs = Mage::getModel('liip_xhprof/run')->getCollection();
+            $runs->addFieldToFilter('id', $id);
+
+            $row = $runs->getFirstItem();
+
             $data = json_decode($row->getData('data'), true);
-    
+
             $collection->setCalls($data);
-            
-           $this->setCollection($collection);
-       
-           return parent::_prepareCollection();
-       }
+            $collection->setCurrent($parent);
+
+            $this->setCollection($collection);
+
+            return parent::_prepareCollection();
+        }
     }
-    
+
     protected function _prepareColumns()
     {
-       
+
        $this->addColumn('name',
            array(
               'header'=> $this->__('Name'),
@@ -47,7 +49,7 @@ class Liip_Xhprof_Block_Report_Run_Grid extends Mage_Adminhtml_Block_Widget_Grid
               'sortable' => false,
            )
        );
-       
+
        $this->addColumn('excl_time',
            array(
               'header'=> $this->__('Excl. Wall Time'),
@@ -56,7 +58,7 @@ class Liip_Xhprof_Block_Report_Run_Grid extends Mage_Adminhtml_Block_Widget_Grid
               'width' => 200,
            )
        );
-       
+
        $this->addColumn('time',
            array(
               'header'=> $this->__('Wall Time'),
@@ -74,18 +76,18 @@ class Liip_Xhprof_Block_Report_Run_Grid extends Mage_Adminhtml_Block_Widget_Grid
               'width' => 200,
            )
        );
-       
+
        return parent::_prepareColumns();
     }
-    
+
     public function getRowUrl($row)
     {
-       // This is where our row data will link to
-       return $this->getUrl('*/*/*', array('parent' => $row->getName()));
+        $id = Mage::app()->getRequest()->getParam('id');
+        return $this->getUrl('*/*/run', array('id' => $id, 'parent' => $row->getName()));
     }
 
     public function getGridUrl()
      {
-       return $this->getUrl('*/*/runGrid', array('_current'=>true));
+        return $this->getUrl('*/*/runGrid', array('_current'=>true));
      }
 }
