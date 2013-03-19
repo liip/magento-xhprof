@@ -12,13 +12,5 @@
     ],
     "require":{
         "magento-hackathon/magento-composer-installer": "*"
-    },
-    "extra":{
-        "map": [
-            ["app/etc/modules/Liip_Xhprof.xml", "app/etc/modules/Liip_Xhprof.xml"],
-            ["app/code/community/Liip/Xhprof", "app/code/community/Liip/Xhprof"],
-            ["app/design/adminhtml/default/default/layout/liip/xhprof.xml", "app/design/adminhtml/default/default/layout/liip/xhprof.xml"],
-            ["app/design/adminhtml/default/default/template/liip_xhprof", "app/design/adminhtml/default/default/template/liip_xhprof"]
-        ]
     }
 }
